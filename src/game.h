@@ -11,6 +11,7 @@
 class Player {
   std::queue<Point> plyr;
   char dir;
+  int grow;
   public:
   Player (int x, int y, Window & w);
   bool move (Window &w);

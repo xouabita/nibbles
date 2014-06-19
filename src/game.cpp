@@ -1,7 +1,17 @@
 #include "game.h"
 
+void addApple(Window &w) {
+  srand(time(NULL));
+  int x = rand() % WIDTH;
+  int y = rand() % HEIGHT;
+  if (w.getEntity(x,y) == EMPTY) {
+    w.setEntity (new Apple (x,y));
+  } else { addApple(w); }
+}
+
 Player::Player (int x, int y, Window & w) {
   dir = 'l';
+  grow = 0;
 
   plyr.push ( Point (x+1,y) ); // Tail
   plyr.push ( Point (x,y) ); // Head
@@ -58,14 +68,20 @@ bool Player::move (Window &w) {
       break;
   }
 
-  if (w.getEntity(new_head.x, new_head.y) == WALL) return false;
+  if (w.getEntity(new_head.x, new_head.y) == WALL || w.getEntity(new_head.x,new_head.y) == NIBBLE) return false;
+  if (w.getEntity(new_head.x, new_head.y) == APPLE) {
+    grow += 5;
+    addApple(w);
+  }
 
   // Move the player
   Point tail = plyr.front();
 
   // Delete the tail
-  plyr.pop();
-  w.delEntity(tail.x,tail.y);
+  if (grow == 0) {
+    plyr.pop();
+    w.delEntity(tail.x,tail.y);
+  } else grow--;
 
   // Add the new head
   plyr.push(new_head);
@@ -79,6 +95,7 @@ Game::Game(Level * l) {
 
 void Game::start () {
   Player p (10,10,w);
+  addApple(w);
   while (p.move(w)) {
     usleep(300000);
   }

@@ -4,6 +4,7 @@
 #define EMPTY 0
 #define NIBBLE 1
 #define WALL 2
+#define APPLE 3
 
 #include <ncurses.h>
 
@@ -26,8 +27,14 @@ class Nibble : public Entity {
 
 class Wall : public Entity {
   public:
-   Wall (int x, int y);
-   void print ();
+  Wall (int x, int y);
+  void print ();
+};
+
+class Apple : public Entity {
+  public:
+  Apple (int x, int y);
+  void print ();
 };
 
 #endif

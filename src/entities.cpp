@@ -20,3 +20,11 @@ void Wall::print() {
   refresh();
   attroff(COLOR_PAIR(3));
 }
+
+Apple::Apple (int x, int y): Entity (APPLE, x, y) {}
+void Apple::print () {
+  attron(COLOR_PAIR(4));
+  addch('@');
+  refresh();
+  attroff(COLOR_PAIR(4));
+}

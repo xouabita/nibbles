@@ -15,7 +15,7 @@ void initDisplay () {
   init_pair(1, COLOR_WHITE, COLOR_BLACK); // Background
   init_pair(2, COLOR_YELLOW, COLOR_BLACK); // Nibble color
   init_pair(3, COLOR_WHITE, COLOR_BLUE); // Wall color
-  init_pair(4, COLOR_YELLOW, COLOR_BLACK);
+  init_pair(4, COLOR_YELLOW, COLOR_RED); // Apple Color
   init_pair(5, COLOR_WHITE, COLOR_BLUE);
   init_pair(6, COLOR_MAGENTA, COLOR_BLACK);
   init_pair(7, COLOR_RED, COLOR_YELLOW);
