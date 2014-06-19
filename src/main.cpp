@@ -17,16 +17,8 @@ int main () {
     return 1;
   }
 
-  Window w;
-  Player p (10,10,w);
-  Level1 l;
-  l.print(w);
-  int c = getch();
-  while (c != ' ') {
-    usleep(500000);
-    p.move(w);
-    c = getch();
-  }
+  Game g (new Level1 ());
+  g.start();
 
   closeDisplay ();
 

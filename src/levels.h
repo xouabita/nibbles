@@ -9,7 +9,7 @@ class Level {
   virtual void print (Window & w) = 0;
 };
 
-class Level1 {
+class Level1 : public Level {
   public:
   void print (Window &w);
 };

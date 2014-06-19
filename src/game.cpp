@@ -10,7 +10,7 @@ Player::Player (int x, int y, Window & w) {
   w.setEntity (new Nibble (x+1,y));
 }
 
-void Player::move (Window &w) {
+bool Player::move (Window &w) {
   int key = getch();
 
   // Change the direction
@@ -35,6 +35,8 @@ void Player::move (Window &w) {
         dir = 'u';
       }
       break;
+    case ' ':
+      return false;
     default:
       break;
   }
@@ -56,6 +58,8 @@ void Player::move (Window &w) {
       break;
   }
 
+  if (w.getEntity(new_head.x, new_head.y) == WALL) return false;
+
   // Move the player
   Point tail = plyr.front();
 
@@ -66,4 +70,16 @@ void Player::move (Window &w) {
   // Add the new head
   plyr.push(new_head);
   w.setEntity(new Nibble(new_head.x,new_head.y));
+  return true;
+}
+
+Game::Game(Level * l) {
+  l->print(w);
+}
+
+void Game::start () {
+  Player p (10,10,w);
+  while (p.move(w)) {
+    usleep(300000);
+  }
 }
