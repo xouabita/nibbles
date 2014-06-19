@@ -3,6 +3,7 @@
 #include "game.h"
 #include "display.h"
 #include "entities.h"
+#include "levels.h"
 
 int main () {
 
@@ -18,6 +19,8 @@ int main () {
 
   Window w;
   Player p (10,10,w);
+  Level1 l;
+  l.print(w);
   int c = getch();
   while (c != ' ') {
     usleep(500000);

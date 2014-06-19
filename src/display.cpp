@@ -12,9 +12,9 @@ void initDisplay () {
   flushinp();
 
   // Define colors for the game
-  init_pair(1, COLOR_GREEN, COLOR_BLUE);
-  init_pair(2, COLOR_GREEN, COLOR_BLACK);
-  init_pair(3, COLOR_GREEN, COLOR_BLACK);
+  init_pair(1, COLOR_WHITE, COLOR_BLACK); // Background
+  init_pair(2, COLOR_YELLOW, COLOR_BLACK); // Nibble color
+  init_pair(3, COLOR_WHITE, COLOR_BLUE); // Wall color
   init_pair(4, COLOR_YELLOW, COLOR_BLACK);
   init_pair(5, COLOR_WHITE, COLOR_BLUE);
   init_pair(6, COLOR_MAGENTA, COLOR_BLACK);
@@ -22,7 +22,6 @@ void initDisplay () {
   init_pair(8, COLOR_YELLOW, COLOR_RED);
   init_pair(9, COLOR_BLUE, COLOR_RED);
 
-  wbkgd(stdscr, COLOR_PAIR(1));
 }
 
 void closeDisplay () { endwin(); }
@@ -39,6 +38,7 @@ void Window::setEntity (Entity * e) {
   array[e->getY()][e->getX()] = e->getType();
   move(e->getY(), e->getX());
   e->print();
+  refresh();
   delete e;
 }
 
