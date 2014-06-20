@@ -1,3 +1,5 @@
 .DS_STORE
 *.o
 abitaale
+*.dSYM
+debug.txt

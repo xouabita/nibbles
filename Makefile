@@ -1,7 +1,8 @@
 BIN   = abitaale
+DEBUG = src/debug
 OBJ   = src/main.o src/display.o src/game.o src/entities.o src/levels.o
 FLAGS = -lncurses
-CC    = g++ -Wall -pedantic -Wno-long-long -O0 -ggdb
+CC    = g++ -Wall -pedantic -Wno-long-long -O0 -g
 
 all: compile
 
@@ -10,6 +11,9 @@ run: compile
 
 clean:
 	rm -f $(BIN) $(OBJ)
+
+debug: compile
+	valgrind --dsymutil=yes --leak-check=full --log-file="debug.txt" ./abitaale
 
 compile: $(OBJ)
 	$(CC) -o $(BIN) $(OBJ) $(FLAGS)

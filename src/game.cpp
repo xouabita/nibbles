@@ -91,6 +91,7 @@ bool Player::move (Window &w) {
 
 Game::Game(Level * l) {
   l->print(w);
+  delete l;
 }
 
 void Game::start () {
