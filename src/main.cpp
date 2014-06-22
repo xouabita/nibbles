@@ -2,8 +2,12 @@
 #include <ncurses.h>
 #include "game.h"
 #include "display.h"
+#include "gui.h"
 #include "entities.h"
 #include "levels.h"
+
+void launchMultiplayer () {}
+void launchSingleplayer () {}
 
 int main () {
 
@@ -17,8 +21,16 @@ int main () {
     return 1;
   }
 
-  Game g (new Level1 ());
-  g.start();
+  /*Game g (new Level1 ());
+  g.start(); */
+
+  StackBox my_box;
+  my_box.addItem (new Label ("Hello, World !"));
+  my_box.addItem (new Label ("Petit"));
+  my_box.addItem (new Label ("Je suis inevitablement et enormemnt grand"));
+  my_box.draw ();
+
+  sleep (10);
 
   closeDisplay ();
 

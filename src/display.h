@@ -10,6 +10,7 @@
 struct Point {
   int x,y;
   Point (int m_x, int m_y): x (m_x), y (m_y) {}
+  Point (): x (0), y (0) {}
 };
 
 // Init a new display by configuring ncurses

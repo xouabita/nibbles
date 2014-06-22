@@ -98,6 +98,6 @@ void Game::start () {
   Player p (10,10,w);
   addApple(w);
   while (p.move(w)) {
-    usleep(300000);
+    usleep(100000);
   }
 }
