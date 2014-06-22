@@ -24,10 +24,15 @@ int main () {
   /*Game g (new Level1 ());
   g.start(); */
 
-  StackBox my_box;
-  my_box.addItem (new Label ("Hello, World !"));
-  my_box.addItem (new Label ("Petit"));
-  my_box.addItem (new Label ("Je suis inevitablement et enormemnt grand"));
+  StackBox my_box ( 60 );
+  my_box.addItem (new Blank ());
+  my_box.addItem (new Label ("My super title"));
+  my_box.addItem (new Blank ());
+  my_box.addItem (new Blank ());
+  my_box.addItem (new Label ("Single Player"));
+  my_box.addItem (new Label ("Multi Player"));
+  my_box.addItem (new Label ("Exit"));
+  my_box.addItem (new Blank ());
   my_box.draw ();
 
   sleep (10);

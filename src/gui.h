@@ -32,11 +32,16 @@ class Label : public Item {
   virtual void print ();
 };
 
+class Blank : public Label {
+  public:
+  Blank ();
+};
+
 class StackBox : public Box {
   std::vector<Item*> items;
   int max_width;
   public:
-  StackBox();
+  StackBox(int w = 0);
   void addItem (Item * i);
   void draw ();
   ~StackBox();

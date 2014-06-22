@@ -43,8 +43,10 @@ void Label::print () {
   printw(text.c_str());
 }
 
-StackBox::StackBox () : Box (WIDTH/2-2,HEIGHT/2-2,4,2) {
-  max_width = 0;
+Blank::Blank () : Label ("") {}
+
+StackBox::StackBox (int w) : Box (WIDTH/2-2,HEIGHT/2-2,w+4,2) {
+  max_width = w;
 }
 StackBox::~StackBox () {
   for (unsigned int i=0; i < items.size(); i++) {
