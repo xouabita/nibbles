@@ -1,6 +1,6 @@
 BIN   = abitaale
 DEBUG = src/debug
-OBJ   = src/main.o src/display.o src/game.o src/entities.o src/levels.o src/gui.o
+OBJ   = src/main.o src/display.o src/game.o src/entities.o src/levels.o src/gui.o src/player.o
 FLAGS = -lncurses
 CC    = g++ -Wall -pedantic -Wno-long-long -O0 -g
 
@@ -28,6 +28,9 @@ src/menu.o: src/gui.cpp src/gui.h src/display.h
 	$(CC) -c -o $@ $<
 
 src/levels.o: src/levels.cpp src/levels.h src/entities.h src/display.h
+	$(CC) -c -o $@ $<
+
+src/player.o: src/player.cpp src/player.h src/entities.h src/display.h
 	$(CC) -c -o $@ $<
 
 src/display.o: src/display.cpp src/display.h src/entities.h

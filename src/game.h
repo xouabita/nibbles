@@ -7,16 +7,12 @@
 #include "entities.h"
 #include "display.h"
 #include "gui.h"
+#include "player.h"
 #include "levels.h"
 
-class Player {
-  std::queue<Point> plyr;
-  char dir;
-  int grow;
-  public:
-  Player (int x, int y, Window & w);
-  bool move (Window &w);
-};
+#define EXIT 0
+#define LOOSE 1
+#define WIN 2
 
 class Game {
   Window w;
