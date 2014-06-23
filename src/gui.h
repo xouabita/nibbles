@@ -48,6 +48,12 @@ class Title : public Label {
   void print ();
 };
 
+class Error : public Label {
+  public:
+  Error (std::string t);
+  void print ();
+};
+
 class StackBox : public Box {
   protected:
   std::vector<Item*> items;

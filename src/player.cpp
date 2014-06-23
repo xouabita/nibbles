@@ -1,17 +1,8 @@
 #include "player.h"
 
-void addApple(Window &w) {
-  srand(time(NULL));
-  int x = rand() % WIDTH;
-  int y = rand() % HEIGHT;
-  if (w.getEntity(x,y) == EMPTY) {
-    w.setEntity (new Apple (x,y));
-  } else { addApple(w); }
-}
-
 Player::Player (int x, int y, Window & w) {
   dir = 'l';
-  grow = 0;
+  gr = 0;
 
   plyr.push ( Point (x+1,y) ); // Tail
   plyr.push ( Point (x,y) ); // Head
@@ -20,9 +11,11 @@ Player::Player (int x, int y, Window & w) {
   w.setEntity (new Nibble (x+1,y));
 }
 
-bool Player::move (Window &w) {
-  int key = getch();
+void Player::grow (int g) { gr += g; }
 
+int Player::move (Window &w) {
+  int key = getch();
+  int ret_value = NOTHING;
   // Change the direction
   switch (key) {
     case KEY_LEFT:
@@ -46,7 +39,7 @@ bool Player::move (Window &w) {
       }
       break;
     case ' ':
-      return false;
+      return PAUSE;
     default:
       break;
   }
@@ -68,23 +61,24 @@ bool Player::move (Window &w) {
       break;
   }
 
-  if (w.getEntity(new_head.x, new_head.y) == WALL || w.getEntity(new_head.x,new_head.y) == NIBBLE) return false;
-  if (w.getEntity(new_head.x, new_head.y) == APPLE) {
-    grow += 5;
-    addApple(w);
+  char entity = w.getEntity(new_head.x, new_head.y);
+  if (entity == WALL || entity == NIBBLE) return LOOSE;
+  if (entity >= APPLE_1 && entity <= APPLE_9 ) {
+    gr += 1;
+    ret_value = EAT;
   }
 
   // Move the player
   Point tail = plyr.front();
 
   // Delete the tail
-  if (grow == 0) {
+  if (gr == 0) {
     plyr.pop();
     w.delEntity(tail.x,tail.y);
-  } else grow--;
+  } else gr--;
 
   // Add the new head
   plyr.push(new_head);
   w.setEntity(new Nibble(new_head.x,new_head.y));
-  return true;
+  return ret_value;
 }

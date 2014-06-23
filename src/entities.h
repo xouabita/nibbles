@@ -5,6 +5,15 @@
 #define NIBBLE 1
 #define WALL 2
 #define APPLE 3
+#define APPLE_1 4
+#define APPLE_2 5
+#define APPLE_3 6
+#define APPLE_4 7
+#define APPLE_5 8
+#define APPLE_6 9
+#define APPLE_7 10
+#define APPLE_8 11
+#define APPLE_9 12
 
 #include <ncurses.h>
 
@@ -34,6 +43,13 @@ class Wall : public Entity {
 class Apple : public Entity {
   public:
   Apple (int x, int y);
+  void print ();
+};
+
+class NumberApple : public Entity {
+  char n;
+  public:
+  NumberApple (int type, int x, int y);
   void print ();
 };
 

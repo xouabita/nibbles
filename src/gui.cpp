@@ -3,6 +3,14 @@
 Box::Box (int x, int y, int w, int h): height (h), width (w), pos (x,y) {}
 
 void Box::drawBox () {
+
+  for (int i=pos.y; i < pos.y+height-1; i++) {
+    for (int j=pos.x; j < pos.x+width-1; j++) {
+      move(i,j);
+      addch(' ');
+    }
+  }
+
   // Draw the corners
   move(pos.y, pos.x);
   addch(CORNER);
@@ -55,6 +63,17 @@ void Title::print () {
   attron(A_DIM);
   printw(text.c_str());
   attroff(COLOR_PAIR (9));
+  attroff(A_BOLD);
+  attroff(A_DIM);
+}
+
+Error::Error (std::string t) : Label (t) {}
+void Error::print () {
+  attron(COLOR_PAIR (8));
+  attron(A_BOLD);
+  attron(A_DIM);
+  printw(text.c_str());
+  attroff(COLOR_PAIR (8));
   attroff(A_BOLD);
   attroff(A_DIM);
 }

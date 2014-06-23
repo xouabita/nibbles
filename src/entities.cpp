@@ -28,3 +28,15 @@ void Apple::print () {
   refresh();
   attroff(COLOR_PAIR(4));
 }
+
+NumberApple::NumberApple (int type, int x, int y) : Entity (type, x, y) {
+  this->n = type - APPLE_1 + 49;
+}
+
+void NumberApple::print () {
+  attron(COLOR_PAIR(4));
+  addch(n);
+  refresh();
+  attroff(COLOR_PAIR(4));
+}
+

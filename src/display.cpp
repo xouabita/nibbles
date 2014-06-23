@@ -19,7 +19,7 @@ void initDisplay () {
   init_pair(5, COLOR_WHITE, COLOR_BLUE);
   init_pair(6, COLOR_MAGENTA, COLOR_BLACK);
   init_pair(7, COLOR_RED, COLOR_YELLOW);
-  init_pair(8, COLOR_YELLOW, COLOR_RED);
+  init_pair(8, COLOR_RED, COLOR_BLACK);   // Error message
   init_pair(9, COLOR_GREEN, COLOR_BLACK); // Title message
 
 }
@@ -27,11 +27,20 @@ void initDisplay () {
 void closeDisplay () { endwin(); }
 
 Window::Window () {
+  array = new char* [HEIGHT];
   for (int i=0; i<HEIGHT; i++) {
+    array[i] = new char [WIDTH];
     for (int j=0; j<WIDTH; j++) {
       array[i][j] = NULL;
     }
   }
+}
+
+Window::~Window () {
+  for (int i=0; i<HEIGHT; i++) {
+    delete [] array[i];
+  }
+  delete [] array;
 }
 
 void Window::setEntity (Entity * e) {
@@ -68,6 +77,9 @@ void Window::refresh () {
             break;
           case APPLE:
             e = new Apple (j,i);
+            break;
+          default:
+            e = new NumberApple (array[i][j], j, i);
             break;
         }
         e->print ();

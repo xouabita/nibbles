@@ -3,24 +3,48 @@
 Level::Level (int x, int y) : plyr (x,y,w) {
 
   // Pause Menu
-  menu_pause.addItem (new Blank ());
   menu_pause.addItem (new Label ("    Pause     "));
   menu_pause.addItem (new Blank ());
   menu_pause.addItem (new Button ("Continue",0));
   menu_pause.addItem (new Button ("Exit", 1));
-  menu_pause.addItem (new Blank ());
+
+  apple = APPLE_1;
 }
 
-void Level::start () {
-  addApple(w);
+void Level::addApple () {
+  srand(time(NULL));
+  unsigned int x = rand() % (WIDTH-1);
+  unsigned int y = rand() % (HEIGHT-1);
+  if (w.getEntity(x,y) == EMPTY) {
+    w.setEntity (new NumberApple (apple,x,y));
+  } else {
+    usleep(50);
+    addApple();
+  }
+}
+
+int Level::start () {
+  addApple();
   while (1) {
-    if (!plyr.move(w)) {
+    int plyr_res = plyr.move(w);
+    if (plyr_res == PAUSE) {
       menu_pause.draw();
       int res = menu_pause.getSelect();
-      if (res) { break; }
+      if (res) { return EXIT; }
       else { w.refresh(); }
     }
-    usleep(100000);
+    else if (plyr_res == EAT) {
+      if (apple == APPLE_9) return WIN;
+      else {
+        plyr.grow (((apple - APPLE_1 + 1) * 5)-1);
+        apple++;
+        addApple();
+      }
+    }
+    else if (plyr_res == LOOSE) {
+      return LOOSE;
+    }
+    usleep(90000);
   }
 }
 
@@ -36,4 +60,22 @@ void Level1::print() {
     w.setEntity(new Wall (0,i));
     w.setEntity(new Wall (WIDTH-1,i));
   }
+}
+
+Level2::Level2 () : Level (WIDTH/2, HEIGHT-10) {}
+void Level2::print() {
+  for (int i = 0; i < WIDTH; i++) {
+    w.setEntity(new Wall (i,0));
+    w.setEntity(new Wall (i, HEIGHT-1));
+  }
+
+  for (int i = 0; i < HEIGHT; i++) {
+    w.setEntity(new Wall (0,i));
+    w.setEntity(new Wall (WIDTH-1,i));
+  }
+
+  for (int i = 10; i < WIDTH - 10; i++) {
+    w.setEntity(new Wall (i, HEIGHT/2));
+  }
+
 }
