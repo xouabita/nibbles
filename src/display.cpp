@@ -24,7 +24,12 @@ void initDisplay () {
 
 }
 
-void closeDisplay () { endwin(); }
+void closeDisplay () {
+  endwin();
+  keypad(stdscr, FALSE);
+  nodelay(stdscr, FALSE);
+  curs_set(1);
+}
 
 Window::Window () {
   array = new char* [HEIGHT];
