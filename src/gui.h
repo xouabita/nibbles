@@ -62,7 +62,7 @@ class StackBox : public Box {
   StackBox(int w = 0);
   virtual void addItem (Item * i);
   void draw ();
-  ~StackBox();
+  virtual ~StackBox();
 };
 
 class Button : public Item {

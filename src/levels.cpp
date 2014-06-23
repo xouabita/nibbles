@@ -116,3 +116,68 @@ void Level4::print () {
     w.setEntity(new Wall (i, HEIGHT/2 + HEIGHT/4));
   }
 }
+
+MultiLevel::MultiLevel () : plyr (WIDTH-11,HEIGHT/2,w), ai (10,HEIGHT/2,w)  {
+  // Pause Menu
+  menu_pause.addItem (new Label ("    Pause     "));
+  menu_pause.addItem (new Blank ());
+  menu_pause.addItem (new Button ("Continue",0));
+  menu_pause.addItem (new Button ("Exit", 1));
+
+  apples = 1;
+}
+
+void MultiLevel::addApple () {
+  srand(time(NULL));
+  unsigned int x = rand() % (WIDTH-1);
+  unsigned int y = rand() % (HEIGHT-1);
+  if (w.getEntity(x,y) == EMPTY) {
+    w.setEntity (new Apple (x,y));
+  } else {
+    usleep(50);
+    addApple();
+  }
+}
+
+int MultiLevel::start () {
+  addApple();
+  while (1) {
+    int plyr_res = plyr.move(w);
+    if (plyr_res == PAUSE) {
+      menu_pause.draw();
+      int res = menu_pause.getSelect();
+      if (res) { return EXIT; }
+      else { w.refresh(); }
+    }
+    else if (plyr_res == EAT) {
+      plyr.grow (apples * 5);
+      apples++;
+      addApple();
+    }
+    else if (plyr_res == LOOSE) {
+      return LOOSE;
+    }
+
+    int ai_res = ai.move(w);
+    if (ai_res == LOOSE) { return WIN; }
+    else if (ai_res == EAT) {
+      ai.grow (apples * 5);
+      apples++;
+      addApple();
+    }
+    usleep(110000);
+  }
+}
+
+void MultiLevel::print () {
+  for (int i = 0; i < WIDTH; i++) {
+    w.setEntity(new Wall (i,0));
+    w.setEntity(new Wall (i, HEIGHT-1));
+  }
+
+  for (int i = 0; i < HEIGHT; i++) {
+    w.setEntity(new Wall (0,i));
+    w.setEntity(new Wall (WIDTH-1,i));
+  }
+  refresh();
+}

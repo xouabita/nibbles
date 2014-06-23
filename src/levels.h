@@ -21,6 +21,19 @@ class Level {
   int start ();
 };
 
+class MultiLevel {
+  Window w;
+  Menu menu_pause;
+  int apples;
+  Player plyr;
+  AI ai;
+  void addApple ();
+  public:
+  MultiLevel ();
+  void print ();
+  int start ();
+};
+
 class Level1 : public Level {
   public:
   Level1 ();

@@ -103,7 +103,42 @@ void launchSingleplayer () {
   }
 }
 
-void launchMultiplayer () {}
+void launchMultiplayer () {
+
+  Menu win_menu;
+  win_menu.addItem (new Title ("You Win !!!"));
+  win_menu.addItem (new Blank () );
+  win_menu.addItem (new Button ("Replay", 0));
+  win_menu.addItem (new Button ("Exit", 1));
+
+  Menu loose_menu;
+  loose_menu.addItem (new Error ("You loose the game !!!"));
+  loose_menu.addItem (new Blank () );
+  loose_menu.addItem (new Button ("Retry", 0));
+  loose_menu.addItem (new Button ("Exit", 1));
+
+  bool exit = false;
+
+  while (!exit) {
+    MultiLevel l;
+    clear();
+    l.print();
+    int res = l.start();
+    switch (res) {
+      case EXIT:
+        exit = true;
+        break;
+      case WIN:
+        win_menu.draw();
+        exit = win_menu.getSelect();
+        break;
+      case LOOSE:
+        loose_menu.draw();
+        exit = loose_menu.getSelect();
+        break;
+    }
+  }
+}
 
 
 void mainMenu () {
@@ -125,6 +160,9 @@ void mainMenu () {
     switch (n) {
       case 0:
         launchSingleplayer ();
+        break;
+      case 1:
+        launchMultiplayer ();
         break;
       default:
         end = true;

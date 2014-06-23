@@ -18,7 +18,7 @@ void initDisplay () {
   init_pair(4, COLOR_YELLOW, COLOR_RED); // Apple Color
   init_pair(5, COLOR_WHITE, COLOR_BLUE);
   init_pair(6, COLOR_MAGENTA, COLOR_BLACK);
-  init_pair(7, COLOR_RED, COLOR_YELLOW);
+  init_pair(7, COLOR_GREEN, COLOR_BLACK); // Nibble2 color
   init_pair(8, COLOR_RED, COLOR_BLACK);   // Error message
   init_pair(9, COLOR_GREEN, COLOR_BLACK); // Title message
 
@@ -32,20 +32,11 @@ void closeDisplay () {
 }
 
 Window::Window () {
-  array = new char* [HEIGHT];
   for (int i=0; i<HEIGHT; i++) {
-    array[i] = new char [WIDTH];
     for (int j=0; j<WIDTH; j++) {
       array[i][j] = NULL;
     }
   }
-}
-
-Window::~Window () {
-  for (int i=0; i<HEIGHT; i++) {
-    delete [] array[i];
-  }
-  delete [] array;
 }
 
 void Window::setEntity (Entity * e) {
@@ -78,6 +69,9 @@ void Window::refresh () {
             break;
           case NIBBLE:
             e = new Nibble (j,i);
+            break;
+          case NIBBLE_2:
+            e = new Nibble2 (j,i);
             break;
           case APPLE:
             e = new Apple (j,i);

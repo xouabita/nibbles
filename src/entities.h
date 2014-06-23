@@ -12,6 +12,7 @@
 #define APPLE_5 8
 #define APPLE_6 9
 #define APPLE_7 10
+#define NIBBLE_2 11
 
 #include <ncurses.h>
 
@@ -29,6 +30,12 @@ class Entity {
 class Nibble : public Entity {
   public:
   Nibble (int x, int y);
+  void print ();
+};
+
+class Nibble2 : public Entity {
+  public:
+  Nibble2 (int x, int y);
   void print ();
 };
 

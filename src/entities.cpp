@@ -13,6 +13,14 @@ void Nibble::print() {
   attroff(COLOR_PAIR(2));
 }
 
+Nibble2::Nibble2 (int x, int y): Entity (NIBBLE_2, x, y) {}
+void Nibble2::print() {
+  attron(COLOR_PAIR(7));
+  addch('O');
+  refresh();
+  attroff(COLOR_PAIR(7));
+}
+
 Wall::Wall (int x, int y): Entity (WALL, x, y) {}
 void Wall::print() {
   attron(COLOR_PAIR(3));

@@ -24,4 +24,15 @@ class Player {
   void grow (int g);
 };
 
+class AI {
+  std::queue<Point> ai;
+  char dir;
+  int gr;
+  int verifyDir (char d, Window w);
+  public:
+  AI (int x, int y, Window & w);
+  int move (Window &w);
+  void grow (int g);
+};
+
 #endif
