@@ -63,7 +63,7 @@ int Player::move (Window &w) {
 
   char entity = w.getEntity(new_head.x, new_head.y);
   if (entity == WALL || entity == NIBBLE) return LOOSE;
-  if (entity >= APPLE_1 && entity <= APPLE_9 ) {
+  if (entity >= APPLE_1 && entity <= APPLE_7 ) {
     gr += 1;
     ret_value = EAT;
   }

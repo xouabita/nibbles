@@ -12,8 +12,6 @@
 #define APPLE_5 8
 #define APPLE_6 9
 #define APPLE_7 10
-#define APPLE_8 11
-#define APPLE_9 12
 
 #include <ncurses.h>
 

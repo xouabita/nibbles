@@ -47,7 +47,6 @@ void Window::setEntity (Entity * e) {
   array[e->getY()][e->getX()] = e->getType();
   move(e->getY(), e->getX());
   e->print();
-  refresh();
   delete e;
 }
 

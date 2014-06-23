@@ -34,7 +34,7 @@ int Level::start () {
       else { w.refresh(); }
     }
     else if (plyr_res == EAT) {
-      if (apple == APPLE_9) return WIN;
+      if (apple == APPLE_7) return WIN;
       else {
         plyr.grow (((apple - APPLE_1 + 1) * 5)-1);
         apple++;
@@ -44,7 +44,7 @@ int Level::start () {
     else if (plyr_res == LOOSE) {
       return LOOSE;
     }
-    usleep(90000);
+    usleep(110000);
   }
 }
 
@@ -60,6 +60,7 @@ void Level1::print() {
     w.setEntity(new Wall (0,i));
     w.setEntity(new Wall (WIDTH-1,i));
   }
+  refresh();
 }
 
 Level2::Level2 () : Level (WIDTH/2, HEIGHT-10) {}
@@ -77,5 +78,41 @@ void Level2::print() {
   for (int i = 10; i < WIDTH - 10; i++) {
     w.setEntity(new Wall (i, HEIGHT/2));
   }
+  refresh();
+}
 
+Level3::Level3 () : Level (WIDTH-5, HEIGHT/2) {}
+void Level3::print() {
+  for (int i = 0; i < WIDTH; i++) {
+    w.setEntity(new Wall (i,0));
+    w.setEntity(new Wall (i, HEIGHT-1));
+  }
+
+  for (int i = 0; i < HEIGHT; i++) {
+    w.setEntity(new Wall (0,i));
+    w.setEntity(new Wall (WIDTH-1,i));
+  }
+
+  for (int i = 5; i < HEIGHT - 5; i++) {
+    w.setEntity(new Wall (WIDTH/2, i));
+  }
+  refresh();
+}
+
+Level4::Level4 () : Level (WIDTH/2,HEIGHT/2) {}
+void Level4::print () {
+  for (int i = 0; i < WIDTH; i++) {
+    w.setEntity(new Wall (i,0));
+    w.setEntity(new Wall (i, HEIGHT-1));
+  }
+
+  for (int i = 0; i < HEIGHT; i++) {
+    w.setEntity(new Wall (0,i));
+    w.setEntity(new Wall (WIDTH-1,i));
+  }
+
+  for (int i = 10; i < WIDTH - 10; i++) {
+    w.setEntity(new Wall (i, HEIGHT/4));
+    w.setEntity(new Wall (i, HEIGHT/2 + HEIGHT/4));
+  }
 }

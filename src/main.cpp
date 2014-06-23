@@ -8,8 +8,9 @@
 
 void displayLife (int n) {
   std::string lifes = "Life: ";
-  lifes += (unsigned char)(n+58);
-  mvprintw(25,0,"Coucou");
+  lifes += (n+48);
+  move (HEIGHT,0);
+  printw(lifes.c_str());
   refresh();
 }
 
@@ -17,10 +18,16 @@ int launchLevel (int i, int lifes) {
   Level * l;
   switch (i) {
     case 0:
-      l = new Level2 ();
+      l = new Level1 ();
       break;
     case 1:
-      l = new Level1 ();
+      l = new Level2 ();
+      break;
+    case 2:
+      l = new Level3 ();
+      break;
+    case 3:
+      l = new Level4 ();
       break;
   }
   clear();
@@ -32,7 +39,7 @@ int launchLevel (int i, int lifes) {
 }
 
 void launchSingleplayer () {
-  int number_levels = 2;
+  int number_levels = 4;
   int lifes = 5;
 
   Menu stageComplete_menu;
@@ -49,7 +56,7 @@ void launchSingleplayer () {
   Menu life_menu;
   life_menu.addItem (new Error ("You loose a life"));
   life_menu.addItem (new Blank () );
-  life_menu.addItem (new Button ("Continue", 0));
+  life_menu.addItem (new Button ("Retry", 0));
   life_menu.addItem (new Button ("Exit", 1));
 
   Menu loose_menu;
@@ -67,7 +74,7 @@ void launchSingleplayer () {
         exit = true;
         break;
       case WIN:
-        if (i-1 == number_levels) {
+        if (i == number_levels-1) {
           win_menu.draw();
           win_menu.getSelect();
           exit = true;

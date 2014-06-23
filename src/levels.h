@@ -33,7 +33,7 @@ class Level2 : public Level {
   void print ();
 };
 
-/*
+
 class Level3 : public Level {
   public:
   Level3 ();
@@ -46,6 +46,7 @@ class Level4 : public Level {
   void print ();
 };
 
+/*
 class Level5 : public Level {
   public:
   Level5 ();
@@ -64,6 +65,4 @@ class Level7 : public Level {
   void print ();
 };
 */
-
-int LaunchLevel (Level * l);
 #endif
