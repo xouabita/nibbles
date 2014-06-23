@@ -6,6 +6,7 @@
 #include <queue>
 #include "entities.h"
 #include "display.h"
+#include "gui.h"
 #include "levels.h"
 
 class Player {
@@ -19,6 +20,7 @@ class Player {
 
 class Game {
   Window w;
+  Menu menu_pause;
   public:
   Game (Level * l);
   void start ();

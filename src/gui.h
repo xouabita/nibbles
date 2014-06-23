@@ -22,14 +22,19 @@ class Box {
 
 struct Item {
   int w;
-  virtual void print () = 0;
+  bool canSelect;
+  int return_value;
+  virtual void print    () = 0;
+  virtual void onSelect () = 0;
 };
 
 class Label : public Item {
+  protected:
   std::string text;
   public:
   Label (std::string t);
   virtual void print ();
+  void onSelect ();
 };
 
 class Blank : public Label {
@@ -37,14 +42,44 @@ class Blank : public Label {
   Blank ();
 };
 
+class Title : public Label {
+  public:
+  Title (std::string t);
+  void print ();
+};
+
 class StackBox : public Box {
+  protected:
   std::vector<Item*> items;
   int max_width;
   public:
   StackBox(int w = 0);
-  void addItem (Item * i);
+  virtual void addItem (Item * i);
   void draw ();
   ~StackBox();
+};
+
+class Button : public Item {
+  std::string text;
+  public:
+  Button (std::string t, int r);
+  virtual void print ();
+  virtual void onSelect ();
+};
+
+class Menu : public StackBox {
+  int vect_pos;
+  std::vector<int> selections;
+  void mv_curs (int i);
+  void applySelect ();
+  void applyDeselect ();
+  void Up ();
+  void Down ();
+  public:
+  Menu (int w = 0);
+  void draw ();
+  void addItem (Item * i);
+  int getSelect ();
 };
 
 #endif

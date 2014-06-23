@@ -20,7 +20,7 @@ void initDisplay () {
   init_pair(6, COLOR_MAGENTA, COLOR_BLACK);
   init_pair(7, COLOR_RED, COLOR_YELLOW);
   init_pair(8, COLOR_YELLOW, COLOR_RED);
-  init_pair(9, COLOR_BLUE, COLOR_RED);
+  init_pair(9, COLOR_GREEN, COLOR_BLACK); // Title message
 
 }
 
@@ -29,7 +29,7 @@ void closeDisplay () { endwin(); }
 Window::Window () {
   for (int i=0; i<HEIGHT; i++) {
     for (int j=0; j<WIDTH; j++) {
-      array[i][j] = EMPTY;
+      array[i][j] = NULL;
     }
   }
 }
@@ -50,4 +50,29 @@ void Window::delEntity (int x, int y) {
 
 char Window::getEntity (int x, int y) {
   return array[y][x];
+}
+
+void Window::refresh () {
+  clear();
+  for (int i = 0; i < HEIGHT; i++) {
+    for (int j = 0; j < WIDTH; j++) {
+      if (array[i][j]) {
+        move(i,j);
+        Entity * e;
+        switch (array[i][j]) {
+          case WALL:
+            e = new Wall (j,i);
+            break;
+          case NIBBLE:
+            e = new Nibble (j,i);
+            break;
+          case APPLE:
+            e = new Apple (j,i);
+            break;
+        }
+        e->print ();
+        delete e;
+      }
+    }
+  }
 }

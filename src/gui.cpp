@@ -35,15 +35,29 @@ void Box::draw () {
 }
 
 Label::Label (std::string t) {
-  text = t;
-  w    = text.length();
+  text      = t;
+  w         = text.length();
+  canSelect = false;
 }
 
 void Label::print () {
   printw(text.c_str());
 }
 
+void Label::onSelect () {}
+
 Blank::Blank () : Label ("") {}
+
+Title::Title (std::string t) : Label (t) {}
+void Title::print () {
+  attron(COLOR_PAIR (9));
+  attron(A_BOLD);
+  attron(A_DIM);
+  printw(text.c_str());
+  attroff(COLOR_PAIR (9));
+  attroff(A_BOLD);
+  attroff(A_DIM);
+}
 
 StackBox::StackBox (int w) : Box (WIDTH/2-2,HEIGHT/2-2,w+4,2) {
   max_width = w;
@@ -76,4 +90,99 @@ void StackBox::draw () {
     items[i]->print();
   }
   refresh();
+}
+
+Button::Button (std::string t, int r ) {
+  text         = t;
+  return_value = r;
+  w            = text.length ();
+  canSelect    = true;
+}
+
+void Button::print () {
+  printw (text.c_str());
+}
+
+void Button::onSelect () {
+  attron (A_REVERSE);
+  printw (text.c_str ());
+  attroff (A_REVERSE);
+}
+
+Menu::Menu (int w) : StackBox (w) {
+  vect_pos = 0;
+}
+
+void Menu::draw () {
+  StackBox::draw ();
+  applySelect ();
+  refresh();
+}
+
+void Menu::addItem (Item * i) {
+  StackBox::addItem (i);
+  if (i->canSelect) {
+    selections.push_back ( items.size() - 1 );
+  }
+}
+
+void Menu::mv_curs (int i) {
+  int y = pos.y + 1 + i;
+  int x = pos.x + width/2 - items[i]->w/2;
+  move(y,x);
+}
+
+void Menu::applySelect () {
+  if (vect_pos >= 0) {
+    int i = selections[vect_pos];
+    mv_curs (i);
+    items[i]->onSelect();
+    refresh ();
+  }
+}
+
+void Menu::applyDeselect () {
+  int i = selections[vect_pos];
+  mv_curs (i);
+  items[i]->print();
+}
+
+void Menu::Up () {
+  applyDeselect ();
+  if ( vect_pos != 0) {
+    vect_pos--;
+  } else {
+    vect_pos = selections.size()-1;
+  }
+  applySelect ();
+  refresh ();
+}
+
+void Menu::Down () {
+  applyDeselect ();
+  if ( vect_pos != selections.size()-1 ) {
+    vect_pos++;
+  } else {
+    vect_pos = 0;
+  }
+  applySelect ();
+  refresh ();
+}
+
+int Menu::getSelect () {
+  nodelay(stdscr, FALSE);
+  int c = getch();
+  while (c != '\n') {
+    switch (c) {
+      case KEY_UP:
+        this->Up();
+        break;
+      case KEY_DOWN:
+        this->Down();
+        break;
+    }
+    c = getch();
+  }
+  nodelay(stdscr, TRUE);
+  return items[ selections[vect_pos] ]->return_value ;
 }

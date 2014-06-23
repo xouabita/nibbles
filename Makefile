@@ -21,7 +21,7 @@ compile: $(OBJ)
 src/main.o: src/main.cpp src/display.h src/game.h src/entities.h src/gui.h
 	$(CC) -c -o $@ $<
 
-src/game.o: src/game.cpp src/game.h src/display.h src/entities.h
+src/game.o: src/game.cpp src/game.h src/display.h src/entities.h src/gui.h
 	$(CC) -c -o $@ $<
 
 src/menu.o: src/gui.cpp src/gui.h src/display.h

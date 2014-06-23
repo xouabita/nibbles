@@ -21,23 +21,30 @@ int main () {
     return 1;
   }
 
-  /*Game g (new Level1 ());
-  g.start(); */
-
-  StackBox my_box ( 60 );
+  Menu my_box (50);
   my_box.addItem (new Blank ());
-  my_box.addItem (new Label ("My super title"));
+  my_box.addItem (new Title ("Ooooo Nibbles ooooO"));
   my_box.addItem (new Blank ());
   my_box.addItem (new Blank ());
-  my_box.addItem (new Label ("Single Player"));
-  my_box.addItem (new Label ("Multi Player"));
-  my_box.addItem (new Label ("Exit"));
+  my_box.addItem (new Button ("Single Player",0));
+  my_box.addItem (new Button ("Multi Player",1));
+  my_box.addItem (new Button ("Exit",2));
   my_box.addItem (new Blank ());
   my_box.draw ();
+  int n = my_box.getSelect ();
 
-  sleep (10);
+  switch (n) {
+    case 0:
+      clear();
+      Game * g = new Game (new Level1 ());
+      g->start();
+      delete g;
+      break;
+  }
 
   closeDisplay ();
+
+  std::cout << n << std::endl;
 
   return 0;
 }

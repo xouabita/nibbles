@@ -21,13 +21,13 @@ void closeDisplay();
 
 // Represent the window
 class Window {
-
   char array[HEIGHT][WIDTH]; // Array with entity
   public:
   Window ();
   void setEntity (Entity * e);
   void delEntity (int x, int y);
   char getEntity (int x, int y);
+  void refresh ();
 };
 
 #endif
