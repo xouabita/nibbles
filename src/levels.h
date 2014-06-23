@@ -3,15 +3,24 @@
 
 #include "display.h"
 #include "entities.h"
+#include "player.h"
+#include "gui.h"
 
 class Level {
+  protected:
+  Window w;
+  Menu menu_pause;
+  Player plyr;
   public:
-  virtual void print (Window & w) = 0;
+  Level (int x, int y);
+  virtual void print () = 0;
+  void start ();
 };
 
 class Level1 : public Level {
   public:
-  void print (Window &w);
+  Level1 ();
+  void print ();
 };
 
 #endif

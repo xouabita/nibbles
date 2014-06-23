@@ -1,6 +1,5 @@
 #include <iostream>
 #include <ncurses.h>
-#include "game.h"
 #include "display.h"
 #include "gui.h"
 #include "entities.h"
@@ -36,9 +35,10 @@ int main () {
   switch (n) {
     case 0:
       clear();
-      Game * g = new Game (new Level1 ());
-      g->start();
-      delete g;
+      Level * l = new Level1 ();
+      l->print();
+      l->start();
+      delete l;
       break;
   }
 
