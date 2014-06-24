@@ -4,16 +4,23 @@ OBJ   = src/main.o src/display.o src/entities.o src/levels.o src/gui.o src/playe
 FLAGS = -lncurses
 CC    = g++ -Wall -pedantic -Wno-long-long -O0 -g
 
-all: compile
+all: compile doc
 
 run: compile
 	./$(BIN)
 
 clean:
 	rm -f $(BIN) $(OBJ)
+	rm -rf doc
 
 debug: compile
 	valgrind --dsymutil=yes --leak-check=full --log-file="debug.txt" ./abitaale
+
+doc:
+	cd src; \
+	doxygen Doxyfile
+	cd ..;
+	mv src/html ./doc
 
 compile: $(OBJ)
 	$(CC) -o $(BIN) $(OBJ) $(FLAGS)

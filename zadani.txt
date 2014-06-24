@@ -1,0 +1,1 @@
+Nibbles: a variant on the classical game nibbles with the possibility of multiplayer game over the network or playing against a simple computer intelligence. Use ncurses for writing the interface.
