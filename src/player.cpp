@@ -120,6 +120,26 @@ int AI::verifyDir (char d,Window w) {
 
 int AI::move(Window &w) {
 
+  srand(time(NULL));
+  unsigned int change = rand() % 2;
+  if (change) {
+    unsigned int d = rand() % 4;
+    switch (d) {
+      case 0:
+        if (dir != 'd') dir = 'u';
+        break;
+      case 1:
+        if (dir != 'u') dir = 'd';
+        break;
+      case 2:
+        if (dir != 'l') dir = 'r';
+        break;
+      case 3:
+        if (dir != 'r') dir = 'l';
+        break;
+    }
+  }
+
   // Find the best solution
   if (!verifyDir(dir,w)) {
     if (dir != 'd' && verifyDir ('u',w)) {
