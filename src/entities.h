@@ -21,6 +21,7 @@ class Entity {
   int x, y;
   public:
   Entity (char type, int x, int y);
+  virtual ~Entity () {}
   virtual void print () = 0;
   int getX ();
   int getY ();

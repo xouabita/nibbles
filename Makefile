@@ -1,8 +1,8 @@
 BIN   = abitaale
 DEBUG = src/debug
-OBJ   = src/main.o src/display.o src/entities.o src/levels.o src/gui.o src/player.o
+OBJ   = src/display.o src/entities.o src/levels.o src/gui.o src/player.o src/main.o
 FLAGS = -lncurses
-CC    = g++ -std=c++11 -Wall -pedantic -Wno-long-long -O0 -g
+CC    = g++ -Wall -pedantic -Wno-long-long -O0 -ggdb
 
 all: compile doc
 

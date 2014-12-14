@@ -64,7 +64,7 @@ int Player::move (Window &w) {
 
   char entity = w.getEntity(new_head.x, new_head.y);
   if (entity == WALL || entity == NIBBLE || entity == NIBBLE_2) return LOOSE;
-  if (entity >= APPLE_1 && entity <= APPLE_7 || entity == APPLE) {
+  if ((entity >= APPLE_1 && entity <= APPLE_7) || entity == APPLE) {
     gr += 1;
     ret_value = EAT;
   }
@@ -157,7 +157,7 @@ int AI::move(Window &w) {
   }
 
   // Move the new head
-  int ret_value;
+  int ret_value = NOTHING;
   Point new_head = ai.back();
   switch (dir) {
     case 'l':
@@ -176,7 +176,7 @@ int AI::move(Window &w) {
 
   char entity = w.getEntity(new_head.x, new_head.y);
   if (entity == WALL || entity == NIBBLE || entity == NIBBLE_2) return LOOSE;
-  if (entity >= APPLE_1 && entity <= APPLE_7 || entity == APPLE) {
+  if (entity != EMPTY) {
     gr += 1;
     ret_value = EAT;
   }

@@ -4,6 +4,7 @@
 #include "display.h"
 #include <iostream>
 #include <vector>
+#include <string>
 #include <ncurses.h>
 
 #define CORNER '*'
@@ -24,6 +25,7 @@ struct Item {
   int w;
   bool canSelect;
   int return_value;
+  virtual ~Item () {}
   virtual void print    () = 0;
   virtual void onSelect () = 0;
 };
@@ -33,6 +35,7 @@ class Label : public Item {
   std::string text;
   public:
   Label (std::string t);
+  virtual ~Label () {}
   virtual void print ();
   void onSelect ();
 };
@@ -40,17 +43,20 @@ class Label : public Item {
 class Blank : public Label {
   public:
   Blank ();
+  virtual ~Blank () {}
 };
 
 class Title : public Label {
   public:
   Title (std::string t);
+  virtual ~Title () {}
   void print ();
 };
 
 class Error : public Label {
   public:
   Error (std::string t);
+  virtual ~Error () {}
   void print ();
 };
 
@@ -60,9 +66,9 @@ class StackBox : public Box {
   int max_width;
   public:
   StackBox(int w = 0);
+  ~StackBox ();
   virtual void addItem (Item * i);
   void draw ();
-  virtual ~StackBox();
 };
 
 class Button : public Item {

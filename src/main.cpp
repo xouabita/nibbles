@@ -1,10 +1,11 @@
 #include <iostream>
 #include <ncurses.h>
 #include <string>
+#include <unistd.h>
 #include "display.h"
-#include "gui.h"
 #include "entities.h"
 #include "levels.h"
+#include "gui.h"
 
 void displayLife (int n) {
   std::string lifes = "Life: ";

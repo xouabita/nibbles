@@ -7,6 +7,7 @@
 #include "gui.h"
 
 #include <iostream>
+#include <unistd.h>
 
 class Level {
   protected:
@@ -18,6 +19,7 @@ class Level {
   public:
   Level (int x, int y);
   virtual void print () = 0;
+  virtual ~Level () {}
   int start ();
 };
 
